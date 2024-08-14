@@ -1,0 +1,321 @@
+[gd_scene load_steps=20 format=3 uid="uid://bjk5jko4nv3oq"]
+
+[ext_resource type="Script" path="res://CharacterBody2D.gd" id="1_0qy8f"]
+[ext_resource type="Texture2D" uid="uid://b6i5odl3difut" path="res://icon.svg" id="2_48w7r"]
+[ext_resource type="Script" path="res://AI_JumpPoint.gd" id="3_v02hr"]
+[ext_resource type="Script" path="res://AI_FallPoint.gd" id="4_2h0w1"]
+
+[sub_resource type="Gradient" id="Gradient_e5rpf"]
+colors = PackedColorArray(0.237539, 0.237539, 0.237539, 1, 0.2, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xn1a8"]
+gradient = SubResource("Gradient_e5rpf")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6e6eu"]
+size = Vector2(640, 136)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8g7nv"]
+size = Vector2(384, 136)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_js72e"]
+size = Vector2(256, 16)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3jrag"]
+radius = 32.0
+height = 128.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2jppl"]
+size = Vector2(64, 128)
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_suvt4"]
+vertices = PackedVector2Array(150, 502, 10, 502, 10, 434, 150, 434, 630, 502, 234, 502, 234, 434, 630, 434, 1142, 502, 778, 502, 778, 434, 1142, 434, 630, 358, 394, 358, 394, 306, 630, 306)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7), PackedInt32Array(8, 9, 10, 11), PackedInt32Array(12, 13, 14, 15)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, 512, 0, 424, 160, 424, 160, 512), PackedVector2Array(224, 424, 640, 424, 640, 512, 224, 512), PackedVector2Array(768, 512, 768, 424, 1152, 424, 1152, 512), PackedVector2Array(384, 368, 384, 296, 640, 296, 640, 368)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dk8nq"]
+size = Vector2(20, 16)
+
+[sub_resource type="Curve2D" id="Curve2D_xlu3q"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, -97.1235, 0.840896, 97.1235, -0.840896, 96, -104, 0, 0, 0, 0, 192, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_8kwyr"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 94.3845, -0.419025, -94.3845, 0.419025, -96, -104, 0, 0, 0, 0, -192, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_tl7h4"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, -63.0672, -4.20448, 63.0672, 4.20448, 96, -24, 0, 0, 0, 0, 192, 144)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_vktuj"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 94.3845, -0.419025, -94.3845, 0.419025, -96, -192, 0, 0, 0, 0, -192, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_fyat6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, -95.8636, 0.840896, 95.8636, -0.840896, 96, -192, 0, 0, 0, 0, 192, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_4yf0r"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, -17.9516, 1.59005, 17.9516, -1.59005, 22, -192, 0, 0, 0, 0, 38, -144)
+}
+point_count = 3
+
+[node name="Level" type="Node2D"]
+
+[node name="bg" type="TextureRect" parent="."]
+z_index = -200
+offset_left = 1152.0
+offset_right = 1800.0
+offset_bottom = 1152.0
+rotation = 1.5708
+texture = SubResource("GradientTexture1D_xn1a8")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(576, 576)
+collision_mask = 0
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
+offset_left = -576.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 72.0
+color = Color(0.58, 0.58, 0.58, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-256, 4)
+shape = SubResource("RectangleShape2D_6e6eu")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2(1344, 576)
+collision_mask = 0
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D3"]
+offset_left = -576.0
+offset_top = -64.0
+offset_right = -192.0
+offset_bottom = 72.0
+color = Color(0.58, 0.58, 0.58, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+position = Vector2(-384, 4)
+shape = SubResource("RectangleShape2D_8g7nv")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+position = Vector2(448, 384)
+collision_layer = 4
+collision_mask = 0
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D4"]
+offset_left = -64.0
+offset_top = -16.0
+offset_right = 192.0
+color = Color(0.754996, 0.478556, 0.639895, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+position = Vector2(64, -8)
+shape = SubResource("RectangleShape2D_js72e")
+one_way_collision = true
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(352, 480)
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_0qy8f")
+
+[node name="Icon" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(0, -32)
+scale = Vector2(0.5, 1)
+texture = ExtResource("2_48w7r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(0, -32)
+shape = SubResource("CapsuleShape2D_3jrag")
+debug_color = Color(0, 0.6, 0, 0)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="CharacterBody2D"]
+debug_enabled = true
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(192, 448)
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D2"]
+offset_left = -32.0
+offset_top = -64.0
+offset_right = 32.0
+offset_bottom = 64.0
+color = Color(0.58, 0.58, 0.58, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+shape = SubResource("RectangleShape2D_2jppl")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_suvt4")
+
+[node name="AI_JP1" type="Node2D" parent="."]
+position = Vector2(608, 512)
+script = ExtResource("3_v02hr")
+Xspeed = 300.0
+
+[node name="NavigationLink2D" type="NavigationLink2D" parent="AI_JP1"]
+position = Vector2(0, -56)
+bidirectional = false
+start_position = Vector2(0, 16)
+end_position = Vector2(192, 16)
+
+[node name="ExecPoint" type="Area2D" parent="AI_JP1"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AI_JP1/ExecPoint"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_dk8nq")
+
+[node name="Path2D" type="Path2D" parent="AI_JP1"]
+curve = SubResource("Curve2D_xlu3q")
+
+[node name="AI_JP1_R" type="Node2D" parent="."]
+position = Vector2(800, 512)
+script = ExtResource("3_v02hr")
+Xspeed = -300.0
+
+[node name="NavigationLink2D" type="NavigationLink2D" parent="AI_JP1_R"]
+position = Vector2(0, -56)
+bidirectional = false
+start_position = Vector2(0, 16)
+end_position = Vector2(-192, 16)
+
+[node name="ExecPoint" type="Area2D" parent="AI_JP1_R"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AI_JP1_R/ExecPoint"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_dk8nq")
+
+[node name="Path2D" type="Path2D" parent="AI_JP1_R"]
+curve = SubResource("Curve2D_8kwyr")
+
+[node name="AI_JP4" type="Node2D" parent="."]
+visible = false
+position = Vector2(624, 368)
+script = ExtResource("3_v02hr")
+Xspeed = 250.0
+
+[node name="NavigationLink2D" type="NavigationLink2D" parent="AI_JP4"]
+position = Vector2(0, -56)
+bidirectional = false
+start_position = Vector2(0, 16)
+end_position = Vector2(192, 160)
+
+[node name="ExecPoint" type="Area2D" parent="AI_JP4"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AI_JP4/ExecPoint"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_dk8nq")
+
+[node name="Path2D" type="Path2D" parent="AI_JP4"]
+curve = SubResource("Curve2D_tl7h4")
+
+[node name="AI_JP2_R" type="Node2D" parent="."]
+position = Vector2(288, 512)
+script = ExtResource("3_v02hr")
+Xspeed = -220.0
+
+[node name="NavigationLink2D" type="NavigationLink2D" parent="AI_JP2_R"]
+position = Vector2(0, -56)
+bidirectional = false
+start_position = Vector2(0, 16)
+end_position = Vector2(-192, 16)
+
+[node name="ExecPoint" type="Area2D" parent="AI_JP2_R"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AI_JP2_R/ExecPoint"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_dk8nq")
+
+[node name="Path2D" type="Path2D" parent="AI_JP2_R"]
+curve = SubResource("Curve2D_vktuj")
+
+[node name="AI_JP2" type="Node2D" parent="."]
+position = Vector2(96, 512)
+script = ExtResource("3_v02hr")
+Xspeed = 220.0
+
+[node name="NavigationLink2D" type="NavigationLink2D" parent="AI_JP2"]
+position = Vector2(0, -56)
+bidirectional = false
+start_position = Vector2(0, 16)
+end_position = Vector2(192, 16)
+
+[node name="ExecPoint" type="Area2D" parent="AI_JP2"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AI_JP2/ExecPoint"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_dk8nq")
+
+[node name="Path2D" type="Path2D" parent="AI_JP2"]
+curve = SubResource("Curve2D_fyat6")
+
+[node name="AI_JP3" type="Node2D" parent="."]
+position = Vector2(394, 512)
+script = ExtResource("3_v02hr")
+Xspeed = 50.0
+
+[node name="NavigationLink2D" type="NavigationLink2D" parent="AI_JP3"]
+position = Vector2(0, -56)
+bidirectional = false
+start_position = Vector2(0, 16)
+end_position = Vector2(40, -103)
+
+[node name="ExecPoint" type="Area2D" parent="AI_JP3"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AI_JP3/ExecPoint"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_dk8nq")
+
+[node name="Path2D" type="Path2D" parent="AI_JP3"]
+curve = SubResource("Curve2D_4yf0r")
+
+[node name="AI_FP1" type="Node2D" parent="."]
+position = Vector2(512, 368)
+script = ExtResource("4_2h0w1")
+
+[node name="NavigationLink2D" type="NavigationLink2D" parent="AI_FP1"]
+position = Vector2(0, -56)
+bidirectional = false
+start_position = Vector2(0, 24)
+end_position = Vector2(0, 168)
+
+[node name="ExecPoint" type="Area2D" parent="AI_FP1"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AI_FP1/ExecPoint"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_dk8nq")
+
+[connection signal="link_reached" from="CharacterBody2D/NavigationAgent2D" to="CharacterBody2D" method="_on_navigation_agent_2d_link_reached"]
